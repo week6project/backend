@@ -8,11 +8,8 @@ module.exports = {
     return refresh;
   },
 
-  access: (nickname, userId) => {
-    const payload = {
-      nickname: nickname,
-      userId: userId,
-    };
+  access: (userNo, email) => {
+    const payload = { userNo, email };
     const access = 'Bearer ' + jwt.sign(payload, secretKey, { expiresIn: '5m' });
     return access;
   },
