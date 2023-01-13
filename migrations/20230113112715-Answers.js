@@ -19,12 +19,12 @@ module.exports = {
         },
         onDelete: 'CASCADE',
       },
-      userId: {
+      userNo: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Users',
-          key: 'userId',
+          key: 'userNo',
         },
         onDelete: 'CASCADE',
       },

@@ -26,13 +26,16 @@ module.exports = (sequelize, DataTypes) => {
   }
   Users.init(
     {
-      userId: {
+      userNo: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
       },
-
+      userId: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       nickname: {
         type: Sequelize.STRING,
         allowNull: false,

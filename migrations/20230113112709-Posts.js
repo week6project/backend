@@ -10,28 +10,28 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      userId: {
+      userNo: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Users',
-          key: 'userId',
+          key: 'userNo',
         },
         onDelete: 'CASCADE',
       },
-      paintId: {
+      imageSrc: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      isAnswer: {
+      inputAnswer: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      isHint: {
+      inputHint: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      difficulty: {
+      difficult: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

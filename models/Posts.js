@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.Users, {
         as: 'Users',
-        sourceKey: 'userId',
-        foreignKey: 'userId',
+        sourceKey: 'userNo',
+        foreignKey: 'userNo',
         onDelete: 'CASCADE',
       });
       this.hasOne(models.Answers, {
@@ -32,23 +32,23 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      userId: {
+      userNo: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      paintId: {
+      imageSrc: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      isAnswer: {
+      inputAnswer: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      isHint: {
+      inputHint: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      difficulty: {
+      difficult: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
