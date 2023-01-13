@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       isAnswer: {
         type: Sequelize.STRING,
-        allowNull: fasle,
+        allowNull: false,
       },
       isHint: {
         type: Sequelize.STRING,
@@ -56,11 +56,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      // likeCount: {
-      //   type: Sequelize.INTEGER,
-      //   allowNull: true,
-      //   defaultValue: Sequelize.literal('0'),
-      // },
     },
     {
       sequelize,
