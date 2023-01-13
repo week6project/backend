@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.Users, {
         as: 'Users',
-        sourceKey: 'userId',
-        foreignKey: 'userId',
+        sourceKey: 'userNo',
+        foreignKey: 'userNo',
         onDelete: 'CASCADE',
       });
       this.belongsTo(models.Posts, {
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      userId: {
+      userNo: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
