@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { access } = require('../module/Token');
+const { access } = require('../module/Token.module');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRETKEY;
 const error = new Error();

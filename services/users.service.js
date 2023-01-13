@@ -42,7 +42,6 @@ class UsersServices {
   loginProcess = async (userId, password, res) => {
     try {
       const idInquiry = await this.usersRepository.loginProcess(userId);
-      console.log(idInquiry);
       if (!idInquiry) {
         error.status = 404;
         error.data = { errorMessage: '존재하지 않는 아이디 입니다.' };
@@ -83,7 +82,6 @@ class UsersServices {
       const cipherPassword = cipher(password);
       const { hashPassword, salt } = cipherPassword;
       const resetPassword = await this.usersRepository.resetProcess(userId, hashPassword, salt);
-      console.log(resetPassword);
       success.status = 200;
       success.data = { message: '비밀번호를 변경하였습니다.' };
       return success;
