@@ -1,0 +1,7 @@
+SECRETKEY = ////별도 공유
+username =  //// AWS 계정
+password = /// AWS 비밀번호
+database = MainSkill_Subject
+host =  /// 엔드포인트
+dialect=  mysql
+Port = 3000
