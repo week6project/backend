@@ -7,7 +7,7 @@ error.status = {};
 const success = {};
 
 class UsersServices {
-  usersRepository = UsersRepository(Users);
+  usersRepository = new UsersRepository(Users);
   signupProcess = async (userId, nickname, email, password) => {
     try {
       const reduplicateUser = await this.usersRepository.reduplicateUser(userId);
@@ -27,9 +27,14 @@ class UsersServices {
       );
       success.status = 201;
       success.data = { message: '회원가입에 성공했습니다.' };
+      return success;
     } catch (error) {
-      error.status = 400;
-      error.data = { errorMessage: '요청한 데이터 형식이 올바르지 않습니다.' };
+      console.log(error);
+      if (error.status !== 412) {
+        error.status = 400;
+        error.data = { errorMessage: '요청한 데이터 형식이 올바르지 않습니다.' };
+        return error;
+      }
       return error;
     }
   };
@@ -37,6 +42,7 @@ class UsersServices {
   loginProcess = async (userId, password, res) => {
     try {
       const idInquiry = await this.usersRepository.loginProcess(userId);
+      console.log(idInquiry);
       if (!idInquiry) {
         error.status = 404;
         error.data = { errorMessage: '존재하지 않는 아이디 입니다.' };
@@ -50,13 +56,39 @@ class UsersServices {
         throw error;
       }
 
-      res.cookie('Authorization', access(userData.nickname, userData.userId));
+      res.cookie('Authorization', access(idInquiry.userNo, idInquiry.nickname));
       res.cookie('refreshAuthorization', refresh());
       success.status = 200;
       success.data = { message: '로그인에 성공했습니다.' };
       return success;
     } catch (error) {
-      if (error.status !== 412 || error.status !== 404) {
+      console.log(error);
+      if (error.status !== 404 && error.status !== 412) {
+        error.status = 400;
+        error.data = { errorMessage: '요청한 데이터 형식이 올바르지 않습니다.' };
+        return error;
+      }
+      return error;
+    }
+  };
+
+  resetProcess = async (userId, email, password) => {
+    try {
+      const idInquiry = await this.usersRepository.loginProcess(userId);
+      if (email !== idInquiry.email || userId !== idInquiry.userId) {
+        error.status = 412;
+        error.data = { errorMessage: '입력하신 정보가 일치하지 않습니다.' };
+        throw error;
+      }
+      const cipherPassword = cipher(password);
+      const { hashPassword, salt } = cipherPassword;
+      const resetPassword = await this.usersRepository.resetProcess(userId, hashPassword, salt);
+      console.log(resetPassword);
+      success.status = 200;
+      success.data = { message: '비밀번호를 변경하였습니다.' };
+      return success;
+    } catch (error) {
+      if (error.status !== 412) {
         error.status = 400;
         error.data = { errorMessage: '요청한 데이터 형식이 올바르지 않습니다.' };
         return error;

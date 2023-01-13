@@ -26,6 +26,12 @@ class UsersRepository {
     });
     return JSON.parse(JSON.stringify(login));
   };
+
+  resetProcess = async (userId, hashPassword, salt) => {
+    const reset = await this.usersModel.update({ hashPassword, salt }, { where: { userId } });
+    console.log(reset);
+    return reset;
+  };
 }
 
 module.exports = UsersRepository;

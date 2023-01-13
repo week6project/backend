@@ -10,8 +10,14 @@ class UsersController {
 
   loginProcess = async (req, res) => {
     const { userId, password } = await req.body;
-    const login = await this.usersServices.loginProcess(userId, password);
+    const login = await this.usersServices.loginProcess(userId, password, res);
     return res.status(login.status).json(login.data);
+  };
+
+  resetProcess = async (req, res) => {
+    const { userId, email, password } = await req.body;
+    const reset = await this.usersServices.resetProcess(userId, email, password);
+    return res.status(reset.status).json(reset.data);
   };
 }
 module.exports = UsersController;

@@ -1,13 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const Authorization = require('../middleware/Authorization');
 
-// TODO please add here auth middleware
-
-const PostsController = require("../controllers/posts.controller");
+const PostsController = require('../controllers/posts.controller');
 const postsController = new PostsController();
 
-router.get("/", postsController.getPosts);
-router.post("/", postsController.createPost);
-router.post("/:postId", postsController.getPostById);
+router.get('/', postsController.getPosts);
+router.post('/', Authorization, postsController.createPost);
+router.post('/:postId', Authorization, postsController.getPostById);
 
 module.exports = router;
