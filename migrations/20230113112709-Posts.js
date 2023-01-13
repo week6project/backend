@@ -1,5 +1,4 @@
 'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
 
 module.exports = {
@@ -26,7 +25,7 @@ module.exports = {
       },
       isAnswer: {
         type: Sequelize.STRING,
-        allowNull: fasle,
+        allowNull: false,
       },
       isHint: {
         type: Sequelize.STRING,
