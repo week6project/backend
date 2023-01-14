@@ -1,13 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const multer = require('multer');
-const Authorization = require('../middleware/Authorization');
+const multer = require("multer");
+const Authorization = require("../middleware/Authorization");
 
-const PostsController = require('../controllers/posts.controller');
+const PostsController = require("../controllers/posts.controller");
 const postsController = new PostsController();
 
-router.get('/', postsController.getPosts);
-router.post('/', Authorization, postsController.createPost);
-router.post('/:postId', Authorization, postsController.getPostById);
+router.get("/", postsController.getPosts);
+router.post("/", Authorization, postsController.createPost);
+router.post("/:postId", Authorization, postsController.getPostById);
 
 module.exports = router;
