@@ -1,5 +1,6 @@
 const UsersServices = require('../services/users.service');
 
+/** 클라이언트에서 넘어온 user관련 API는 해당 method로 분기처리되어 진행 */
 class UsersController {
   usersServices = new UsersServices();
   signupProcess = async (req, res) => {

@@ -37,9 +37,8 @@ class PostsController {
     /// 상단에 decode require 설정해두었음
     /// const {userNo, email} = decode(req.cookies)
   };
-
-  ///// 이미지 스토리지 지정 코드
 }
+///// 이미지 스토리지 지정 코드
 // const storage = multer.diskStorage({
 //   destination: function (req, file, cd) {
 //     cd(null, 'public/image/');
