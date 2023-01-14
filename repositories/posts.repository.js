@@ -12,7 +12,7 @@ class PostRepository {
    * @param { String } postId
    * @returns 특정 게시글 1개에 대한 객체 반환
    */
-  findPostById = async () => {
+  findPostById = async (postId) => {
     const result = await Posts.findOne({ where: { postId } });
     return result;
   };

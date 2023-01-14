@@ -4,7 +4,7 @@
   "description": "project_backend",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon app"
   },
   "repository": {
@@ -25,10 +25,12 @@
     "jsonwebtoken": "^9.0.0",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.0.1",
+    "node-mocks-http": "^1.12.1",
     "sequelize": "^6.28.0",
     "sequelize-cli": "^6.5.2"
   },
   "devDependencies": {
+    "jest": "^29.3.1",
     "nodemon": "^2.0.20"
   }
 }
