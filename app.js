@@ -12,6 +12,10 @@ app.use("/api", routesConnect);
 
 // error Hanlder
 app.use(function (err, req, res, next) {
+  if (err.statusCode) {
+    return res.status(err.statusCode).send({ err });
+  }
+
   return res
     .status(500)
     .send({ message: "errCatcher: 무언가 잘못되었습니다." });

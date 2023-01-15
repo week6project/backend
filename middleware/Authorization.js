@@ -9,11 +9,11 @@ module.exports = async (req, res, next) => {
    * 시스템에서 token을 전달하는 방법 변경시 해당 콘솔에서 확인가능,
    * 혹시나 모를 변경 후 공유가 안되었을 때 혼란을 방지
    */
-  console.log(
-    `쿠키에서 들어오는 토큰${req.cookies}
-    헤더에서 들어오는 토큰 ${req.headers}
-    로칼에서 들어오는 토큰 ${req.locals}`
-  );
+  // console.log(
+  //   `쿠키에서 들어오는 토큰${req.cookies}
+  //   헤더에서 들어오는 토큰 ${req.headers}
+  //   로칼에서 들어오는 토큰 ${req.locals}`
+  // );
 
   /**
    * 쿠키에서 받아온 access token
