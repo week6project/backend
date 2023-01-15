@@ -27,6 +27,7 @@ class PostsController {
     /// 필요하면 기타정보 {userId, nickname, email} 담아서 드림 현재는 userNo 및 email 정보 담겨있음
     /// 상단에 decode require 설정해두었음
 
+    // todo 프론트 이미지 업로드 기능 작업 완료 후 미들웨어 파일 넘겨받기 기능 추가 필요
     /**
      * @param {URL} file.location
      * image.middleware 에서 자동으로 링크변경 후 컨트로러에 전달

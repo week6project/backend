@@ -21,6 +21,8 @@ validateInput = (input) => {
   if (!input.inputAnswer) throw new PropertyRequiredError("inputAnswer");
   if (!input.inputHint) throw new PropertyRequiredError("inputHint");
   if (!input.image) throw new PropertyRequiredError("image");
+
+  return true;
 };
 
 module.exports = validateInput;
