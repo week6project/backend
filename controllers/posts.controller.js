@@ -41,7 +41,7 @@ class PostsController {
     const postInputArgs = req.body;
 
     // todo Error Handling
-    //     # 412 body 데이터가 정상적으로 전달되지 않는 경우
+
     // {"errorMessage": "데이터 형식이 올바르지 않습니다."}
     // # 403 Cookie가 존재하지 않을 경우
     // {"errorMessage": "로그인이 필요한 기능입니다."}
@@ -51,7 +51,7 @@ class PostsController {
     // {"errorMessage": "게시글 작성에 실패하였습니다."}
 
     // todo 5개 데이터 모두 유효한지 검증할 것
-    isArgsLength5(postInputArgs);
+    isArgsLength5(postInputArgs); // # 412 body 데이터가 정상적으로 전달되지 않는 경우
 
     // todo : problems: 5개 이상 변수 arg 사용하는 것을 클린하게 짤 필요 -> 객체에 담아서 보낼 것
     if (req.body) {
