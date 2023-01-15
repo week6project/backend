@@ -77,7 +77,12 @@ module.exports = async (req, res, next) => {
     } else if (error.message === 'jwt expired') {
       const newAuthorization = jwt.decode(authToken, secretKey);
       const { userNo, nickname } = newAuthorization;
+      /**
+       * S3 이미지 파일명을 위한 userNo, nickname 전달
+       */
+      res.locals = { userNo, nickname };
       res.cookie('Authorization', access(userNo, nickname));
+
       return next();
       /**
        *위 에러 사항이 모두 통과하지 못하면 비정상적 토큰이므로, 에러메세지 클라이언트에 전달

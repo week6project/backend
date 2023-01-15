@@ -1,8 +1,6 @@
 const PostService = require('../services/posts.service');
 const { decoded } = require('../module/Token.module');
-const multer = require('multer');
 const path = require('path');
-const { MulterError } = require('multer');
 
 class PostsController {
   postService = new PostService();
@@ -10,10 +8,12 @@ class PostsController {
   getPosts = async (req, res, next) => {
     try {
       const posts = await this.postService.findAllPost();
+
       // return res.status(200).json({ data: posts });
       return res.status(200).send({ data: posts });
     } catch (error) {
-      return res.status(400).json({ errorMessage: '게시글 조회에 실패했습니다' });
+      console.log(error);
+      return res.status(400).json({ errorMessage: '컨트롤 게시글 조회에 실패했습니다' });
     }
   };
 
@@ -36,18 +36,10 @@ class PostsController {
     /// 필요하면 기타정보 {userId, nickname, email} 담아서 드림 현재는 userNo 및 email 정보 담겨있음
     /// 상단에 decode require 설정해두었음
     /// const {userNo, email} = decode(req.cookies)
+
+    /// image에 S3 파일에 대한 객체가 담김 [S3 서버에 있는 파일경로로 추정]
+    const image = req.file.location;
   };
 }
-///// 이미지 스토리지 지정 코드
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cd) {
-//     cd(null, 'public/image/');
-//   },
-//   fileName: function (req, file, cd) {
-//     const ext = path.extname(file.origialname);
-//     cd(null, path.basename(file.origialname, ext) + '-' + Date.now() + ext);
-//   },
-// });
-// const upload = MulterError({ storage: storage });
 
 module.exports = PostsController;
