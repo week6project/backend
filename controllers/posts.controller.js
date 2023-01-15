@@ -1,9 +1,6 @@
-const PostService = require("../services/posts.service");
-const { decoded } = require("../module/Token.module");
-const multer = require("multer");
-const path = require("path");
-const { MulterError } = require("multer");
-const { isArgsLength5 } = require("../helpers/validate.input.helper");
+const PostService = require('../services/posts.service');
+const { decoded } = require('../module/Token.module');
+const { isArgsLength5 } = require('../helpers/validate.input.helper');
 
 class PostsController {
   postService = new PostService();
@@ -17,10 +14,18 @@ class PostsController {
     const { postId } = req.params;
     const post = await this.postService.getPostById(postId);
     if (post) return res.status(200).json({ data: post });
-    return res.status(404).json({ errorMessage: "게시글이 존재하지 않습니다" });
+    return res.status(404).json({ errorMessage: '게시글이 존재하지 않습니다' });
   };
 
   createPost = async (req, res, next) => {
+    /**
+     * @param {URL} file.location
+     * image.middleware 에서 자동으로 링크변경 후 컨트로러에 전달
+     */
+    console.log('레퀘스트 이미지 파일 경로', req.file.location);
+    const image = req.file.location;
+    console.log('이미지변수', image); // 주소로 정상적으로 들어오는 것 테스트 완료
+
     // console.log(`쿠키에서 들어오는 토큰${JSON.stringify(req.cookies)}
     // 헤더에서 들어오는 토큰 ${JSON.stringify(req.headers)}
     // 로칼에서 들어오는 토큰 ${JSON.stringify(req.locals)}`);
@@ -32,7 +37,7 @@ class PostsController {
     /// 여기까지 넘어온 쿠키는 신뢰할 수 있음 (미들웨어에서 한번 필터링 함)
     /// 필요하면 기타정보 {userId, nickname, email} 담아서 드림 현재는 userNo 및 email 정보 담겨있음
     /// 상단에 decode require 설정해두었음
-    const temp_userNo = "";
+    const temp_userNo = '';
     // const { userNo, email } = decoded(req.cookies);
     // console.log(`userNo: ${userNo}, email: ${email}`);
     // console.log(`req.body: ${JSON.stringify(req.body)}`);
@@ -57,24 +62,10 @@ class PostsController {
     if (req.body) {
       await this.postService.createPost(postInputArgs);
       // todo status code , message 명세화할 것
-      return res.status(201).json({ message: "게시글 작성에 성공했습니다." });
+      return res.status(201).json({ message: '게시글 작성에 성공했습니다.' });
     }
-    return res
-      .status(400)
-      .json({ errorMeesage: "게시글 작성에 실패했습니다." });
+    return res.status(400).json({ errorMeesage: '게시글 작성에 실패했습니다.' });
   };
 }
-
-///// 이미지 스토리지 지정 코드
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cd) {
-//     cd(null, 'public/image/');
-//   },
-//   fileName: function (req, file, cd) {
-//     const ext = path.extname(file.origialname);
-//     cd(null, path.basename(file.origialname, ext) + '-' + Date.now() + ext);
-//   },
-// });
-// const upload = MulterError({ storage: storage });
 
 module.exports = PostsController;
