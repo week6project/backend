@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const expressSanitizer = require('express-sanitizer');
 const cookieParser = require('cookie-parser');
@@ -18,6 +19,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output');
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(expressSanitizer());
