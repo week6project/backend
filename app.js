@@ -33,7 +33,7 @@ app.use(function (err, req, res, next) {
   return res.status(500).send({ message: 'errCatcher: 무언가 잘못되었습니다.' });
 });
 
-http.createServer(app).listen(post, () => {
+http.createServer(app).listen(port, () => {
   console.log(`HTTP 서버가 실행되었습니다.`);
 });
 https.createServer(options, app).listen(httpsPort, () => {
