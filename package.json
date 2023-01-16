@@ -29,6 +29,7 @@
     "multer-s3": "^2.10.0",
     "mysql2": "^3.0.1",
     "node-mocks-http": "^1.12.1",
+    "s3": "^2.0.0",
     "sequelize": "^6.28.0",
     "sequelize-cli": "^6.5.2",
     "swagger-autogen": "^2.22.0",

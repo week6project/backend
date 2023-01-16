@@ -1,6 +1,6 @@
-require("dotenv").config();
-const { access } = require("../module/Token.module");
-const jwt = require("jsonwebtoken");
+require('dotenv').config();
+const { access } = require('../module/Token.module');
+const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRETKEY;
 const error = new Error();
 
@@ -29,8 +29,9 @@ module.exports = async (req, res, next) => {
   /**
    * 받아온 토큰을 공백을 기준으로 type과 token으로 분해
    */
-  const [authType, authToken] = (Authorization || "").split(" ");
-  const [refType, refToken] = (refreshAuthorization || "").split(" ");
+  const [authType, authToken] = (Authorization || '').split(' ');
+  const [refType, refToken] = (refreshAuthorization || '').split(' ');
+
   try {
     /**
      * 만약 액세스토큰이 없으면 리프레쉬토큰을 확인
@@ -40,7 +41,7 @@ module.exports = async (req, res, next) => {
     if (!Authorization) {
       if (!refreshAuthorization) {
         return res.status(403).json({
-          errorMessage: "로그인이 필요한 기능입니다.",
+          errorMessage: '로그인이 필요한 기능입니다.',
         });
       }
     }
@@ -50,7 +51,7 @@ module.exports = async (req, res, next) => {
      */
     if (!refreshAuthorization) {
       return res.status(403).json({
-        errorMessage: "전달된 쿠키에서 오류가 발생했습니다.",
+        errorMessage: '전달된 쿠키에서 오류가 발생했습니다.',
       });
     }
     /**
@@ -58,36 +59,34 @@ module.exports = async (req, res, next) => {
      * 실패 false시에는 error를 내어 catch가 실행되어 다음 스텝 진행
      */
     const AuthorizationVerify = jwt.verify(authToken, secretKey);
-
-    return next();
+    const { userNo, nickname } = AuthorizationVerify;
+    res.locals = { userNo, nickname };
+    next();
+    return;
   } catch (error) {
-    console.log(error);
     /**
      * 검증 실패 error 메세지가 'invalid token'이면 정상적이 토큰이 아니라고 판단
      * 에러 메세지 리턴
      */
-    if (error.message === "invalid token") {
-      return res
-        .status(403)
-        .json({ errorMessage: "전달된 쿠키에서 오류가 발생했습니다." });
+    if (error.message === 'invalid token') {
+      return res.status(403).json({ errorMessage: '전달된 쿠키에서 오류가 발생했습니다.' });
       /**
        * 검증 실패 error 메세지가 'jwt expired'이면 유효기간이 만료된 액세스 토큰이기 때문에
        * 기존 액세스토큰은 decode하여 payload를 구조분해하여
        * 새로운 액세스토큰에 payload에 넣어주어 새로운 액세스토큰을 발행하여
        * 쿠키로 전달해주고 다음 단계로 진행
        */
-    } else if (error.message === "jwt expired") {
+    } else if (error.message === 'jwt expired') {
       const newAuthorization = jwt.decode(authToken, secretKey);
       const { userNo, nickname } = newAuthorization;
-      res.cookie("Authorization", access(userNo, nickname));
+      res.locals = { userNo, nickname };
+      res.cookie('Authorization', access(userNo, nickname));
       return next();
       /**
        *위 에러 사항이 모두 통과하지 못하면 비정상적 토큰이므로, 에러메세지 클라이언트에 전달
        */
     } else {
-      return res
-        .status(403)
-        .json({ Message: "전달된 쿠키에서 오류가 발생했습니다." });
+      return res.status(403).json({ Message: '전달된 쿠키에서 오류가 발생했습니다.' });
     }
   }
 };
