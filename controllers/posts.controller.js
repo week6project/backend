@@ -1,6 +1,6 @@
-const PostService = require("../services/posts.service");
-const { decoded } = require("../module/Token.module");
-const validateInput = require("../helpers/validate.input.helper");
+const PostService = require('../services/posts.service');
+const { decoded } = require('../module/Token.module');
+const validateInput = require('../helpers/validate.input.helper');
 
 class PostsController {
   postService = new PostService();
@@ -14,7 +14,7 @@ class PostsController {
     const { postId } = req.params;
     const post = await this.postService.getPostById(postId);
     if (post) return res.status(200).json({ data: post });
-    return res.status(404).json({ errorMessage: "게시글이 존재하지 않습니다" });
+    return res.status(404).json({ errorMessage: '게시글이 존재하지 않습니다' });
   };
 
   createPost = async (req, res, next) => {
@@ -34,8 +34,8 @@ class PostsController {
      */
     // console.log("레퀘스트 이미지 파일 경로", req.file.location);
     // const image = req.file.location;
-
-    const image = "s3 amazon temp url";
+    const image = req.file.location;
+    console.log(image);
     const { userNo, nickname } = decoded(req.cookies);
     const { difficult, inputAnswer, inputHint } = req.body;
 
@@ -56,11 +56,9 @@ class PostsController {
 
     if (isInputValidated) {
       await this.postService.createPost(input);
-      return res.status(201).json({ message: "게시글 작성에 성공했습니다." });
+      return res.status(201).json({ message: '게시글 작성에 성공했습니다.' });
     }
-    return res
-      .status(400)
-      .json({ errorMeesage: "게시글 작성에 실패했습니다." });
+    return res.status(400).json({ errorMeesage: '게시글 작성에 실패했습니다.' });
   };
 }
 
