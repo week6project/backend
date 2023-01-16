@@ -4,19 +4,25 @@ error.status = {};
 exports.signupForm = (req, res) => {
   const checkuserId = /^[a-zA-Z0-9]{3,10}$/;
   const checkPassword = /^[a-zA-Z0-9]{4,30}$/;
+  const checkNickname = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]*$/;
   const checkEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   const userSchema = Joi.object({
     userId: Joi.string().pattern(checkuserId).required(),
+    nickname: Joi.string().pattern(checkNickname).required(),
     email: Joi.string().pattern(checkEmail).required(),
     password: Joi.string().pattern(checkPassword).required(),
-    confirm: Joi.string(),
   });
   try {
-    const resultSchema = userSchema.validate(req);
+    const resultSchema = userSchema.validate(req, res);
     if (resultSchema.error) {
       if (resultSchema.error.message.includes('userId')) {
         error.status = 412;
         error.message = { errorMessage: '아이디 양식을 확인해주세요' };
+        throw error;
+      }
+      if (resultSchema.error.message.includes('nickname')) {
+        error.status = 412;
+        error.message = { errorMessage: '닉네임 양식을 확인해주세요' };
         throw error;
       }
       if (resultSchema.error.message.includes('email')) {
@@ -29,16 +35,10 @@ exports.signupForm = (req, res) => {
         error.message = { errorMessage: '비밀번호 양식을 확인해주세요' };
         throw error;
       }
-    } else {
-      if (resultSchema.value.password !== resultSchema.value.confirm) {
-        error.status = 412;
-        error.message = { errorMessage: '비밀번호가 일치하지 않습니다.' };
-        throw error;
-      }
-
-      return resultSchema;
     }
+    return resultSchema;
   } catch (error) {
+    console.log(error);
     if (error.status !== 412) {
       error.status = 400;
       error.message = { errorMessage: '예기치못한 오류가 발생하였습니다.' };
@@ -49,7 +49,7 @@ exports.signupForm = (req, res) => {
 };
 
 exports.loginForm = (req, res) => {
-  const checkNickname = /^[a-zA-Z0-9]{3,10}$/;
+  const checkuserId = /^[a-zA-Z0-9]{3,10}$/;
   const checkPassword = /^[a-zA-Z0-9]{4,30}$/;
   const userSchema = Joi.object({
     userId: Joi.string().pattern(checkuserId).required(),

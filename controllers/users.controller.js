@@ -7,7 +7,9 @@ class UsersController {
 
   signupProcess = async (req, res) => {
     const resultSchema = await signupForm(req.body, res);
+    console.log(resultSchema);
     if (resultSchema.status) {
+      console.log(resultSchema.status);
       return res.status(resultSchema.status).json(resultSchema.message);
     }
     const { userId, nickname, email, password } = await req.body;

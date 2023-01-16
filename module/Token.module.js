@@ -20,7 +20,7 @@ module.exports = {
    */
   access: (userNo, nickname) => {
     const payload = { userNo, nickname };
-    const access = 'Bearer ' + jwt.sign(payload, secretKey, { expiresIn: '5m' });
+    const access = 'Bearer ' + jwt.sign(payload, secretKey, { expiresIn: '15m' });
     return access;
   },
 
@@ -31,8 +31,8 @@ module.exports = {
    * @returns AuthAuthorization 과 Barer Type이 제거 된 토큰String
    */
   decoded: (req, res) => {
-    const { Authorization } = req;
-    const [authType, authToken] = (Authorization || '').split(' ');
+    const { authorization } = req;
+    const [authType, authToken] = (authorization || '').split(' ');
     const userData = jwt.decode(authToken);
     return userData;
   },
