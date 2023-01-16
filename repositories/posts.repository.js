@@ -3,6 +3,7 @@ const { Posts, sequelize } = require("../models");
 class PostRepository {
   findAllPost = async () => {
     const result = await Posts.findAll({});
+
     return result;
   };
 

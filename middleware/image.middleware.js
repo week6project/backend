@@ -20,7 +20,8 @@ const s3uploadMiddleware = multer({
     key: function (req, file, cb) {
       //여기 닉네임 UTF -8 인코딩 해야함
       const { userNo, nickname } = decoded(req.cookies);
-      cb(null, `${Date.now()}_${decodeURI(nickname)}_${userNo}`);
+
+      cb(null, `${Date.now()}_${nickname}_${userNo}`);
     },
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
