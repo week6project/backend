@@ -7,7 +7,8 @@ const development = {
   database: env.database,
   host: env.host,
   dialect: 'mysql',
-  timezone: '+09:00',
+  timezone: 'Asia/Seoul',
+  dateStrings: true,
   logging: false,
 };
 
@@ -17,7 +18,8 @@ const test = {
   database: env.database,
   host: env.host,
   dialect: 'mysql',
-  timezone: '+09:00',
+  timezone: 'Asia/Seoul',
+  dateStrings: true,
   logging: false,
 };
 
@@ -27,7 +29,8 @@ const production = {
   database: env.database,
   host: env.host,
   dialect: 'mysql',
-  timezone: '+09:00',
+  timezone: 'Asia/Seoul',
+  dateStrings: true,
   logging: false,
 };
 
