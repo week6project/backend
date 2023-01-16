@@ -32,6 +32,7 @@ router.post(
   "/",
   Authorization,
   uploadMiddleware.single("image"),
+
   use(postsController.createPost),
   () => {
     /* 

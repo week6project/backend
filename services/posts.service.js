@@ -4,7 +4,6 @@ class PostService {
   postRepository = new PostRepository();
 
   findAllPost = async () => {
-    console.log(`controller hello`);
     return await this.postRepository.findAllPost();
   };
 

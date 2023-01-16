@@ -7,13 +7,20 @@ class PostsController {
 
   getPosts = async (req, res, next) => {
     const posts = await this.postService.findAllPost();
-    return res.status(200).json({ data: posts });
+    return res.status(200).json({
+      status: "success",
+      results: posts.length,
+      data: { posts },
+    });
   };
 
   getPostById = async (req, res, next) => {
     const { postId } = req.params;
     const post = await this.postService.getPostById(postId);
-    if (post) return res.status(200).json({ data: post });
+    if (post) {
+      return res.status(200).json({ data: post });
+    }
+
     return res.status(404).json({ errorMessage: "게시글이 존재하지 않습니다" });
   };
 
@@ -32,7 +39,7 @@ class PostsController {
      * @param {URL} file.location
      * image.middleware 에서 자동으로 링크변경 후 컨트로러에 전달
      */
-    // console.log("레퀘스트 이미지 파일 경로", req.file.location);
+    console.log("레퀘스트 이미지 파일 경로", req.file.location);
     // const image = req.file.location;
 
     const image = "s3 amazon temp url";
