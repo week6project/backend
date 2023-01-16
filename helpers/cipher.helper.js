@@ -1,11 +1,13 @@
 const crypto = require('crypto');
+require('dotenv').config();
+const env = process.env;
 /**
  * 회원가입 단계에서 들어온 평문의 비밀번호를 날짜와 래덤값을 포함한 salt를 합쳐 암호화
  * @param {String} password
  * @returns 로그인시 입력된 비밀번호를 똑같이 암호화 해야하기 때문에 salt를 같이 리턴
  */
 exports.cipher = (password) => {
-  const salt = Math.round(new Date().valueOf() * Math.random()) + '';
+  const salt = env.Salt;
   const hashPassword = crypto
     .createHash('sha512')
     .update(password + salt)
