@@ -11,8 +11,8 @@ const http = require('http');
 const https = require('https');
 const fs = require('fs');
 const options = {
-  key: fs.readFileSync('./rootca.key'),
-  cert: fs.readFileSync('./rootca.crt'),
+  key: fs.readFileSync('./codingtestrg.shop-key.pem'),
+  cert: fs.readFileSync('./codingtestrg.shop.pem'),
 };
 
 const swaggerUi = require('swagger-ui-express');
