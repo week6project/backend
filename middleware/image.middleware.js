@@ -8,8 +8,9 @@ aws.config.update({
   AWS_SECRET_ACCESS_KEY: env.AWS_SECRET_ACCESS_KEY,
   AWS_REGION: env.AWS_REGION,
 });
-
+const { decoded } = require('../module/Token.module');
 const s3 = new aws.S3();
+
 const s3uploadMiddleware = multer({
   storage: multerS3({
     s3: s3,
@@ -17,7 +18,9 @@ const s3uploadMiddleware = multer({
     acl: 'public-read',
     contentType: multerS3.AUTO_CONTENT_TYPE,
     key: function (req, file, cb) {
-      cb(null, `${Date.now()}_${nickname}_${userNo}`);
+      ////여기 닉네임 UTF -8 인코딩 해야함
+      const { userNo, nickname } = decoded(req.cookies);
+      cb(null, `${Date.now()}_${decodeURI(nickname)}_${userNo}`);
     },
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
