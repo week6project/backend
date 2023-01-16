@@ -5,19 +5,20 @@ module.exports = (sequelize, DataTypes) => {
   class Posts extends Model {
     static associate(models) {
       this.belongsTo(models.Users, {
-        as: 'Users',
-        sourceKey: 'userNo',
+        //as: 'Users',
+        //sourceKey: 'userNo',
+        targetKey:'userNo',
         foreignKey: 'userNo',
         onDelete: 'CASCADE',
       });
-      this.hasOne(models.Answers, {
-        as: 'Answers',
+      this.hasMany(models.Answers, { //has one에서 hasMany로 바꿈
+        // as: 'Answers',
         sourceKey: 'postId',
         foreignKey: 'postId',
         onDelete: 'CASCADE',
       });
       this.hasMany(models.Likes, {
-        as: 'Likes',
+        //as: 'Likes',
         sourceKey: 'postId',
         foreignKey: 'postId',
         onDelete: 'CASCADE',

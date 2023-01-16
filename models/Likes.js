@@ -5,14 +5,16 @@ module.exports = (sequelize, DataTypes) => {
   class Likes extends Model {
     static associate(models) {
       this.belongsTo(models.Users, {
-        as: 'Users',
-        sourceKey: 'userNo',
+        // as: 'Users',
+        // sourceKey: 'userNo',
+        targetKey:'userNo',
         foreignKey: 'userNo',
         onDelete: 'CASCADE',
       });
       this.belongsTo(models.Posts, {
-        as: 'Posts',
-        sourceKey: 'postId',
+        // as: 'Posts',
+        // sourceKey: 'postId',
+        targetKey:'postId',
         foreignKey: 'postId',
         onDelete: 'CASCADE',
       });
