@@ -4,6 +4,7 @@ const expressSanitizer = require('express-sanitizer');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = process.env.Port;
+const httpsPort = process.env.HTTPS_Port;
 const routesConnect = require('./routes/index');
 const http = require('http');
 const https = require('https');
@@ -32,9 +33,9 @@ app.use(function (err, req, res, next) {
   return res.status(500).send({ message: 'errCatcher: 무언가 잘못되었습니다.' });
 });
 
-http.createServer(app).listen(3001, () => {
+http.createServer(app).listen(post, () => {
   console.log(`HTTP 서버가 실행되었습니다.`);
 });
-https.createServer(options, app).listen(port, () => {
+https.createServer(options, app).listen(httpsPort, () => {
   console.log(`HTTPS 서버가 실행되었습니다.`);
 });
