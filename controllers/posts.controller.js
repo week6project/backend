@@ -1,20 +1,25 @@
-const PostService = require('../services/posts.service');
-const { decoded } = require('../module/Token.module');
-const validateInput = require('../helpers/validate.input.helper');
+const PostService = require("../services/posts.service");
+const { decoded } = require("../module/Token.module");
+const validateInput = require("../helpers/validate.input.helper");
 
 class PostsController {
   postService = new PostService();
 
   getPosts = async (req, res, next) => {
     const posts = await this.postService.findAllPost();
-    return res.status(200).json({ data: posts });
+    return res.status(200).json({
+      status: "success",
+      results: posts.length,
+      data: { posts },
+    });
   };
 
   getPostById = async (req, res, next) => {
     const { postId } = req.params;
     const post = await this.postService.getPostById(postId);
+
     if (post) return res.status(200).json({ data: post });
-    return res.status(404).json({ errorMessage: '게시글이 존재하지 않습니다' });
+    return res.status(404).json({ errorMessage: "게시글이 존재하지 않습니다" });
   };
 
   createPost = async (req, res, next) => {
@@ -32,7 +37,7 @@ class PostsController {
      * @param {URL} file.location
      * image.middleware 에서 자동으로 링크변경 후 컨트로러에 전달
      */
-    // console.log("레퀘스트 이미지 파일 경로", req.file.location);
+    console.log("레퀘스트 이미지 파일 경로", req.file.location);
     // const image = req.file.location;
     const image = req.file.location;
     console.log(image);
@@ -56,9 +61,11 @@ class PostsController {
 
     if (isInputValidated) {
       await this.postService.createPost(input);
-      return res.status(201).json({ message: '게시글 작성에 성공했습니다.' });
+      return res.status(201).json({ message: "게시글 작성에 성공했습니다." });
     }
-    return res.status(400).json({ errorMeesage: '게시글 작성에 실패했습니다.' });
+    return res
+      .status(400)
+      .json({ errorMeesage: "게시글 작성에 실패했습니다." });
   };
 }
 
