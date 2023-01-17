@@ -27,6 +27,7 @@ app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 const corsOption = {
   origin: 'htp://localhost:3000',
   // allowHeaders: ['Authorization', 'refreshAuthorization'],
+  exposedHeaders: ['Authorization'],
   credentials: true,
 };
 app.use(cors(corsOption));
