@@ -28,8 +28,25 @@ class PostService {
   };
 
   getPostById = async (postId) => {
-       
-    return await this.postRepository.findPostById(postId);
+    const result =  await this.postRepository.findPostById(postId);
+    
+    const post = JSON.parse(JSON.stringify(result));
+  
+    const passedPeople = post.Answers.map(value => {
+      return value.User.nickname
+    })
+    return {
+      "id": post.postId,
+      "postId":post.postId,
+      "userNo": post.userNo,
+      "nickname": post.User.nickname,
+      "image": post.image,
+      "inputAnswer": post.inputAnswer,
+      "createdAt": post.createdAt,
+      "difficult": post.difficult,
+      "inputHint": post.inputHint,
+      "passedPeople": passedPeople
+      }
   };
 
   createPost = async (postInputArgs) => {

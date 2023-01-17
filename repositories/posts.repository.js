@@ -19,7 +19,22 @@ class PostRepository {
   };
 
   findPostById = async (postId) => {
-    const result = await Posts.findOne({ where: { postId } });
+    const result = await Posts.findOne({ 
+      where: { postId },
+      include:[{
+        model:Users,
+        attributes:['nickname'],
+      },{
+        model:Answers,
+        where:{ postId:postId},
+        attributes:['userNo'],
+        include:[{
+          model:Users,
+          attributes:['nickname'],
+        }]
+      }] 
+
+    });
     return result;
   };
 
