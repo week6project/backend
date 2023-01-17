@@ -5,14 +5,15 @@ const expressSanitizer = require('express-sanitizer');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = process.env.Port;
-const httpsPort = process.env.HTTPS_Port;
+const HTTPS_Port = process.env.HTTPS_Port;
 const routesConnect = require('./routes/index');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
 const options = {
-  key: fs.readFileSync('./codingtestrg.shop-key.pem'),
-  cert: fs.readFileSync('./codingtestrg.shop.pem'),
+  ca: fs.readFileSync('/etc/letsencrypt/live/codingtestrg.shop/fullchain.pem'),
+  key: fs.readFileSync('/etc/letsencrypt/live/codingtestrg.shop/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/codingtestrg.shop/cert.pem'),
 };
 
 const swaggerUi = require('swagger-ui-express');
@@ -38,6 +39,6 @@ app.use(function (err, req, res, next) {
 http.createServer(app).listen(port, () => {
   console.log(`HTTP 서버가 실행되었습니다.`);
 });
-https.createServer(options, app).listen(httpsPort, () => {
+const server = https.createServer(options, app).listen(HTTPS_Port, () => {
   console.log(`HTTPS 서버가 실행되었습니다.`);
 });
