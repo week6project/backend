@@ -4,10 +4,22 @@ class PostService {
   postRepository = new PostRepository();
 
   findAllPost = async () => {
-    const allPosts = await this.postRepository.findAllPost();
-    allPosts.sort((a, b) => {
+    const result = await this.postRepository.findAllPost();
+    result.sort((a, b) => {
       return b.createdAt - a.createdAt;
     });
+    const allPosts = JSON.parse(JSON.stringify(result)).map((post)=>{
+      return {
+        "postNo": post.postId,
+        "userNo": post.userNo,
+        "nickname": post.User.nickname,
+        "image": post.image,
+        "inputAnswer": post.inputAnswer,
+        "difficult": post.difficult,
+        "createdAt": post.createdAt
+        }
+      })
+    
     return allPosts;
   };
 

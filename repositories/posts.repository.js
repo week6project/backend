@@ -1,8 +1,13 @@
-const { Posts, sequelize } = require("../models");
+const { Posts, sequelize, Users } = require("../models");
 
 class PostRepository {
   findAllPost = async () => {
-    const result = await Posts.findAll({});
+    const result = await Posts.findAll({
+      include:[{
+        model:Users,
+        attributes:['nickname'],
+      }]
+    });
 
     return result;
   };
