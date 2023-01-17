@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const env = process.env;
 
 const development = {
@@ -6,8 +6,8 @@ const development = {
   password: env.password,
   database: env.database,
   host: env.host,
-  dialect: 'mysql',
-  timezone: '+09:00',
+  dialect: "mysql",
+  timezone: "+09:00",
   logging: false,
 };
 
@@ -16,8 +16,8 @@ const test = {
   password: env.password,
   database: env.database,
   host: env.host,
-  dialect: 'mysql',
-  timezone: '+09:00',
+  dialect: "mysql",
+  timezone: "+09:00",
   logging: false,
 };
 
@@ -26,8 +26,8 @@ const production = {
   password: env.password,
   database: env.database,
   host: env.host,
-  dialect: 'mysql',
-  timezone: '+09:00',
+  dialect: "mysql",
+  timezone: "+09:00",
   logging: false,
 };
 
