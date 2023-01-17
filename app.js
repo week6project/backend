@@ -25,7 +25,7 @@ app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 // });
 // const whitelist = ['http://localhost:3000'];
 const corsOption = {
-  origin: 'htp://localhost:3000',
+  origin: 'htp://localhost:3000/',
   // allowHeaders: ['Authorization', 'refreshAuthorization'],
   exposedHeaders: ['Authorization'],
   credentials: true,
