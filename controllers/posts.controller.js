@@ -6,7 +6,8 @@ class PostsController {
   postService = new PostService();
 
   getPosts = async (req, res, next) => {
-    const posts = await this.postService.findAllPost();
+    const { userNo, nickname } = decoded(req.headers)
+    const posts = await this.postService.findAllPost(userNo);
     return res.status(200).json({
       status: 'success',
       results: posts.length,

@@ -11,7 +11,7 @@ const postsController = new PostsController();
 const use = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
 
-router.get("/", use(postsController.getPosts), () => {
+router.get("/",Authorization, use(postsController.getPosts), () => {
   // #swagger.tags = ['Posts']
   // #swagger.summary = '게시글 전체 조회'
 });
