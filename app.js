@@ -1,18 +1,30 @@
-require("dotenv").config();
-const express = require("express");
-const cookieParser = require("cookie-parser");
+require('dotenv').config();
+const cors = require('cors');
+const express = require('express');
+const expressSanitizer = require('express-sanitizer');
+const cookieParser = require('cookie-parser');
 const app = express();
 const port = process.env.Port;
-const routesConnect = require("./routes/index");
+const httpsPort = process.env.HTTPS_Port;
+const routesConnect = require('./routes/index');
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const options = {
+  key: fs.readFileSync('./codingtestrg.shop-key.pem'),
+  cert: fs.readFileSync('./codingtestrg.shop.pem'),
+};
 
-const swaggerUi = require("swagger-ui-express");
-const swaggerFile = require("./swagger-output");
-app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output');
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
-
-app.use("/api", routesConnect);
+app.use(expressSanitizer());
+app.use(express.urlencoded({ extended: true }));
+app.use('/api', routesConnect);
 
 // error Hanlder
 app.use(function (err, req, res, next) {
@@ -20,11 +32,12 @@ app.use(function (err, req, res, next) {
     return res.status(err.statusCode).send({ err });
   }
   console.log(`🐞 err: ${err}`);
-  return res
-    .status(500)
-    .send({ message: "errCatcher: 무언가 잘못되었습니다." });
+  return res.status(500).send({ message: 'errCatcher: 무언가 잘못되었습니다.' });
 });
 
-app.listen(port, () => {
-  console.log(`${port}`, ": 포트가 실행 되었습니다.");
+http.createServer(app).listen(port, () => {
+  console.log(`HTTP 서버가 실행되었습니다.`);
+});
+https.createServer(options, app).listen(httpsPort, () => {
+  console.log(`HTTPS 서버가 실행되었습니다.`);
 });

@@ -74,7 +74,7 @@ class UsersServices {
        * access / refresh token 발행
        * 해당 토큰은 쿠키형태로 프론트에 넘김
        */
-      res.cookie('Authorization', access(idInquiry.userNo, idInquiry.nickname));
+      res.setHeader('Authorization', access(idInquiry.userNo, idInquiry.nickname));
       res.cookie('refreshAuthorization', refresh());
       success.status = 200;
       success.data = { message: '로그인에 성공했습니다.' };

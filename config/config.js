@@ -6,8 +6,9 @@ const development = {
   password: env.password,
   database: env.database,
   host: env.host,
-  dialect: "mysql",
-  timezone: "+09:00",
+  dialect: 'mysql',
+  timezone: '+09:00',
+  dateStrings: true,
   logging: false,
 };
 
@@ -16,8 +17,10 @@ const test = {
   password: env.password,
   database: env.database,
   host: env.host,
-  dialect: "mysql",
-  timezone: "+09:00",
+
+  dialect: 'mysql',
+  timezone: '+09:00',
+  dateStrings: true,
   logging: false,
 };
 
@@ -26,8 +29,9 @@ const production = {
   password: env.password,
   database: env.database,
   host: env.host,
-  dialect: "mysql",
-  timezone: "+09:00",
+  dialect: 'mysql',
+  timezone: '+09:00',
+  dateStrings: true,
   logging: false,
 };
 
