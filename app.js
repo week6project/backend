@@ -19,8 +19,17 @@ const options = {
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output');
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
-app.use(cors());
+/// cors 옵션
+// app.get('/', (req, res) => {
+//   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+// });
+// const whitelist = ['http://localhost:3000'];
+const corsOption = {
+  origin: 'htp://localhost:3000',
+  // allowHeaders: ['Authorization', 'refreshAuthorization'],
+  credentials: true,
+};
+app.use(cors(corsOption));
 app.use(cookieParser());
 app.use(express.json());
 app.use(expressSanitizer());
