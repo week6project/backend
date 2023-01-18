@@ -5,7 +5,7 @@ const express = require('express');
 const http2Express = require('http2-express-bridge');
 const expressSanitizer = require('express-sanitizer');
 const cookieParser = require('cookie-parser');
-// http2 르 사용하기 위한 조치
+// http2를 사용하기 위한 조치
 const app = http2Express(express);
 
 // const app = express()
@@ -15,6 +15,8 @@ const routesConnect = require('./routes/index');
 
 const http = require('http');
 const https = require('https');
+
+/// http2를 사용하기 위한 조치
 const http2 = require('http2');
 const fs = require('fs');
 const options = {
