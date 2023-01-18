@@ -1,4 +1,4 @@
-const { Posts, sequelize, Users, Answers } = require("../models");
+const { Posts, sequelize, Users, Answers } = require('../models');
 
 class PostRepository {
   findAllPost = async (userNo) => {
@@ -6,7 +6,7 @@ class PostRepository {
       include: [
         {
           model: Users,
-          attributes: ["nickname"],
+          attributes: ['nickname'],
         },
         {
           model: Answers,
@@ -14,7 +14,7 @@ class PostRepository {
           required: false,
         },
       ],
-      group: ["Posts.postId"],
+      group: ['Posts.postId'],
     });
 
     return result;
@@ -26,17 +26,17 @@ class PostRepository {
       include: [
         {
           model: Users,
-          attributes: ["nickname"],
+          attributes: ['nickname'],
         },
         {
           model: Answers,
           where: { postId: postId },
-          attributes: ["userNo"],
+          attributes: ['userNo'],
           required: false,
           include: [
             {
               model: Users,
-              attributes: ["nickname"],
+              attributes: ['nickname'],
             },
           ],
         },
@@ -55,6 +55,15 @@ class PostRepository {
       inputAnswer,
       inputHint,
       difficult,
+    });
+    return result;
+  };
+
+  createAnswerd = async (answerInputArgs) => {
+    const { userNo, postId } = answerInputArgs;
+    const result = await Answers.create({
+      userNo,
+      postId,
     });
     return result;
   };
