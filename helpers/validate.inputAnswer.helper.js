@@ -20,4 +20,4 @@ validateInputAnswer = (answerdInput) => {
   return true;
 };
 
-module.exports = validateInput;
+module.exports = validateInputAnswer;
