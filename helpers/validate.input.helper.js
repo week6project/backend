@@ -24,4 +24,9 @@ validateInput = (input) => {
   return true;
 };
 
+validateInputAnswer = (answerdInput) => {
+  if (!answerdInput.userNo) throw new PropertyRequiredError('userNo');
+  if (!answerdInput.postId) throw new PropertyRequiredError('postId');
+};
+
 module.exports = validateInput;

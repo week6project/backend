@@ -1,12 +1,12 @@
 const PostService = require('../services/posts.service');
 const { decoded } = require('../module/Token.module');
-const validateInput = require('../helpers/validate.input.helper');
+const { validateInput, validateInputAnswer } = require('../helpers/validate.input.helper');
 
 class PostsController {
   postService = new PostService();
 
   getPosts = async (req, res, next) => {
-    const { userNo, nickname } = decoded(req.headers)
+    const { userNo, nickname } = decoded(req.headers);
     const posts = await this.postService.findAllPost(userNo);
     return res.status(200).json({
       status: 'success',
@@ -60,6 +60,20 @@ class PostsController {
       return res.status(201).json({ message: '게시글 작성에 성공했습니다.' });
     }
     return res.status(400).json({ errorMeesage: '게시글 작성에 실패했습니다.' });
+  };
+
+  createAnswerd = async (req, res, next) => {
+    const { userNo, postId } = req.body;
+    const answerdInput = {
+      userNo,
+      postId,
+    };
+    const inputAnsweerValidated = validateInputAnswer(answerdInput);
+    if (inputAnsweerValidated) {
+      await this.postService.createAnswerd(answerdInput);
+      return res.status(201).json({ message: '정답자 입력에 성공하였습니다.' });
+    }
+    return res.status(400).json({ errorMessage: '정답자 작성에 실패했습니다.' });
   };
 }
 
