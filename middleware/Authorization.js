@@ -12,12 +12,12 @@ module.exports = async (req, res, next) => {
   const { authorization } = req.headers;
   console.log('헤더', req.headers);
   console.log('액세스', req.headers.authorization);
-  console.log('리프래쉬', req.headers.refreshAuthorization);
+  console.log('리프래쉬', req.headers.refreshauthorization);
   /**
    * Access Token과 함께 발행 된 refreshtoken
    * payload는 담고있지 않다.
    */
-  const { refreshAuthorization } = req.headers;
+  const { refreshauthorization } = req.headers;
   /**
    * 받아온 토큰을 공백을 기준으로 type과 token으로 분해
    */
@@ -39,7 +39,7 @@ module.exports = async (req, res, next) => {
      * 액세스토큰은 있지만 리프래쉬토큰이 없으면
      * 이 또한 정상적인 접근이 아니라고 판단 토큰에러 매세지 클라이언트 전달
      */
-    if (!refreshAuthorization) {
+    if (!refreshauthorization) {
       return res.status(403).json({
         errorMessage: '전달된 쿠키에서 오류가 발생했습니다.',
       });
