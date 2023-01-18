@@ -9,6 +9,7 @@ const HTTPS_Port = process.env.HTTPS_Port;
 const routesConnect = require('./routes/index');
 const http = require('http');
 const https = require('https');
+const http2 = require('http2');
 const fs = require('fs');
 const options = {
   ca: fs.readFileSync('/etc/letsencrypt/live/codingtestrg.shop/fullchain.pem'),
@@ -49,6 +50,6 @@ app.use(function (err, req, res, next) {
 http.createServer(app).listen(port, () => {
   console.log(`HTTP 서버가 실행되었습니다.`);
 });
-const server = https.createServer(options, app).listen(HTTPS_Port, () => {
+const server = http2.createSecureServer(options, app).listen(HTTPS_Port, () => {
   console.log(`HTTPS 서버가 실행되었습니다.`);
 });
