@@ -10,6 +10,8 @@ module.exports = async (req, res, next) => {
    */
   // const { Authorization } = req.cookies;
   const { authorization } = req.headers;
+  console.log('헤더에 무엇이들어오나요', req.headers);
+  console.log('쿠키는 들어오나요', req.cookies);
   /**
    * Access Token과 함께 발행 된 refreshtoken
    * payload는 담고있지 않다.
