@@ -1,12 +1,18 @@
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
+// http2를 사용하기 위한 조치
+const http2Express = require('http2-express-bridge');
 const expressSanitizer = require('express-sanitizer');
 const cookieParser = require('cookie-parser');
-const app = express();
+// http2 르 사용하기 위한 조치
+const app = http2Express(express);
+
+// const app = express()
 const port = process.env.Port;
 const HTTPS_Port = process.env.HTTPS_Port;
 const routesConnect = require('./routes/index');
+
 const http = require('http');
 const https = require('https');
 const http2 = require('http2');
@@ -50,6 +56,11 @@ app.use(function (err, req, res, next) {
 http.createServer(app).listen(port, () => {
   console.log(`HTTP 서버가 실행되었습니다.`);
 });
-const server = http2.createSecureServer(options, app).listen(HTTPS_Port, () => {
-  console.log(`HTTPS 서버가 실행되었습니다.`);
+
+// https.createSecureServer(options, app).listen(HTTPS_Port, () => {
+//   console.log(`HTTP2 서버가 실행되었습니다.`);
+// });
+
+http2.createSecureServer(options, app).listen(HTTPS_Port, () => {
+  console.log(`HTTP2 서버가 실행되었습니다.`);
 });
