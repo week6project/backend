@@ -21,6 +21,7 @@ const options = {
   ca: fs.readFileSync('/etc/letsencrypt/live/codingtestrg.shop/fullchain.pem'),
   key: fs.readFileSync('/etc/letsencrypt/live/codingtestrg.shop/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/codingtestrg.shop/cert.pem'),
+  allowHTTP1: true,
 };
 
 const swaggerUi = require('swagger-ui-express');
