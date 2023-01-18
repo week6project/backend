@@ -14,6 +14,7 @@ class PropertyRequiredError extends ValidationError {
 }
 
 validateInputAnswer = (answerdInput) => {
+  console.log('검증 컨트롤', answerdInput);
   if (!answerdInput.userNo) throw new PropertyRequiredError('userNo');
   if (!answerdInput.postId) throw new PropertyRequiredError('postId');
 
