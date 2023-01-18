@@ -1,19 +1,40 @@
-const { Posts, sequelize, Users } = require("../models");
+const { Posts, sequelize, Users, Answers } = require("../models");
 
 class PostRepository {
-  findAllPost = async () => {
+  findAllPost = async (userNo) => {
     const result = await Posts.findAll({
       include:[{
-        model:Users,
+        model: Users,
         attributes:['nickname'],
-      }]
+      },{
+        model: Answers,
+        where:{ userNo : userNo },
+        required:false
+      }],
+      group:['Posts.postId'],
+      
     });
 
     return result;
   };
 
   findPostById = async (postId) => {
-    const result = await Posts.findOne({ where: { postId } });
+    const result = await Posts.findOne({ 
+      where: { postId },
+      include:[{
+        model:Users,
+        attributes:['nickname'],
+      },{
+        model:Answers,
+        where:{ postId:postId},
+        attributes:['userNo'],
+        include:[{
+          model:Users,
+          attributes:['nickname'],
+        }]
+      }] 
+
+    });
     return result;
   };
 
