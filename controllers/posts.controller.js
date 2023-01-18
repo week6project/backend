@@ -1,6 +1,7 @@
 const PostService = require('../services/posts.service');
 const { decoded } = require('../module/Token.module');
-const { validateInput, validateInputAnswer } = require('../helpers/validate.input.helper');
+const validateInput = require('../helpers/validate.input.helper');
+const validateInputAnswer = require('../helpers/validate.inputAnswer.helper');
 
 class PostsController {
   postService = new PostService();
