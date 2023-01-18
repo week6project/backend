@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
    * Access Token과 함께 발행 된 refreshtoken
    * payload는 담고있지 않다.
    */
-  const { refreshAuthorization } = req.cookies;
+  const { refreshAuthorization } = req.headers;
   /**
    * 받아온 토큰을 공백을 기준으로 type과 token으로 분해
    */
