@@ -10,6 +10,7 @@ module.exports = async (req, res, next) => {
    */
   // const { Authorization } = req.cookies;
   const { authorization } = req.headers;
+  console.log('헤더', req.headers);
   console.log('액세스', req.headers.authorization);
   console.log('리프래쉬', req.headers.refreshAuthorization);
   /**
