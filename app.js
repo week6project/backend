@@ -1,4 +1,5 @@
 require('dotenv').config();
+const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const express = require('express');
 // http2를 사용하기 위한 조치
@@ -45,6 +46,19 @@ app.use(cors(corsOption));
 app.use(cookieParser());
 app.use(express.json());
 app.use(expressSanitizer());
+/// DDOS 공격 방지 접속 제한 (현재 1분에 10회로 제한 )
+////https://www.npmjs.com/package/express-rate-limit
+app.use(
+  rateLimit({
+    windowMs: 1 * 60 * 1000, /// 1분 (밀리세컨드) type : number
+    max: 10, /// 최대 3번의  type : number || function def : 5  if 0 unlimit
+    delayMs: 1000, // 딜레이 1초
+    standardHeaders: true, // 문제 발생시 헤더로 보냄
+    legacyHeaders: false, //  버전문제시 X-RateLimit-Limit 제한,
+    statusCode: 429,
+    message: 'Too Many account created from this IP',
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', routesConnect);
 
