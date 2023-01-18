@@ -65,6 +65,7 @@ class PostsController {
 
   createAnswerd = async (req, res, next) => {
     const { userNo, postId } = req.body;
+    console.log('정답자 바디 값', req.body);
     const answerdInput = {
       userNo,
       postId,
