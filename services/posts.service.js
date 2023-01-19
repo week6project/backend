@@ -44,7 +44,7 @@ class PostService {
     //// 여기부터 정답자 비교 로직
     const { userNo, nickname } = decoded(req.headers);
     const matchUser = await passedUserNo.include(userNo);
-    console.log(matchUser);
+    console.log('정답자 확인', matchUser);
     if (matchUser) {
       return true;
     }
