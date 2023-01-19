@@ -73,7 +73,7 @@ app.use(function (err, req, res, next) {
 });
 console.log('포트', PORT);
 console.log('https 포트', HTTPS_PORT);
-http.createServer(app).listen(port, () => {
+http.createServer(app).listen(PORT, () => {
   console.log(`HTTP 서버가 실행되었습니다.`);
 });
 
