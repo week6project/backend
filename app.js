@@ -71,7 +71,8 @@ app.use(function (err, req, res, next) {
   errorMessage : ${err}`);
   return res.status(500).send({ message: 'errCatcher: 무언가 잘못되었습니다.' });
 });
-
+console.log('포트', port);
+console.log('https 포트', HTTPS_Port);
 http.createServer(app).listen(port, () => {
   console.log(`HTTP 서버가 실행되었습니다.`);
 });
