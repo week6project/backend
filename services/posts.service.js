@@ -25,7 +25,7 @@ class PostService {
     return allPosts;
   };
 
-  getPostById = async (postId, userNo, next) => {
+  getPostById = async (postId, userNo) => {
     const result = await this.postRepository.findPostById(postId);
     const post = JSON.parse(JSON.stringify(result));
     const passedPeople = post.Answers.map((value) => {
@@ -36,6 +36,12 @@ class PostService {
         return value.User.userNo;
       });
       const matchUser = await passedUserNo.includes(userNo);
+      if (matchUser) {
+        return matchUser;
+      }
+      if (!matchUser) {
+        throw new Error();
+      }
 
       return {
         id: post.postId,
