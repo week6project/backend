@@ -10,8 +10,8 @@ const cookieParser = require('cookie-parser');
 const app = http2Express(express);
 
 // const app = express()
-const port = process.env.Port;
-const HTTPS_Port = process.env.HTTPS_Port;
+const PORT = process.env.Port;
+const HTTPS_PORT = process.env.HTTPS_Port;
 const routesConnect = require('./routes/index');
 
 const http = require('http');
@@ -71,8 +71,8 @@ app.use(function (err, req, res, next) {
   errorMessage : ${err}`);
   return res.status(500).send({ message: 'errCatcher: 무언가 잘못되었습니다.' });
 });
-console.log('포트', port);
-console.log('https 포트', HTTPS_Port);
+console.log('포트', PORT);
+console.log('https 포트', HTTPS_PORT);
 http.createServer(app).listen(port, () => {
   console.log(`HTTP 서버가 실행되었습니다.`);
 });
@@ -81,6 +81,6 @@ http.createServer(app).listen(port, () => {
 //   console.log(`HTTP2 서버가 실행되었습니다.`);
 // });
 
-http2.createSecureServer(options, app).listen(HTTPS_Port, () => {
+http2.createSecureServer(options, app).listen(HTTPS_PORT, () => {
   console.log(`HTTP2 서버가 실행되었습니다.`);
 });
