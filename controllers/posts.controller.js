@@ -18,7 +18,8 @@ class PostsController {
 
   getPostById = async (req, res, next) => {    
     const { postId } = req.params;
-    const post = await this.postService.getPostById(postId);
+    const { userNo } = decoded(req.headers);
+    const post = await this.postService.getPostById(postId, userNo);
     if (post) return res.status(200).json({ data: post });
     return res.status(404).json({ errorMessage: '게시글이 존재하지 않습니다' });
   };

@@ -27,7 +27,7 @@ class PostService {
     return allPosts;
   };
 
-  getPostById = async (postId) => {
+  getPostById = async (postId, userNo) => {
     const result = await this.postRepository.findPostById(postId);
     const post = JSON.parse(JSON.stringify(result));
     const passedPeople = post.Answers.map((value) => {
@@ -43,7 +43,7 @@ class PostService {
       return value.User.userNo;
     });
     //// 여기부터 정답자 비교 로직
-    const { userNo, nickname } = decoded(req.headers);
+
     const matchUser = await passedUserNo.include(userNo);
     console.log('정답자 확인', matchUser);
     if (matchUser) {
