@@ -10,8 +10,8 @@ const cookieParser = require('cookie-parser');
 const app = http2Express(express);
 
 // const app = express()
-const PORT = process.env.Port;
-const HTTPS_PORT = process.env.HTTPS_Port;
+const PORT = process.env.PORT;
+const HTTPS_PORT = process.env.HTTPS_PORT;
 const routesConnect = require('./routes/index');
 
 const http = require('http');
