@@ -75,9 +75,11 @@ class UsersServices {
        * 해당 토큰은 쿠키형태로 프론트에 넘김
        */
       res.setHeader('Authorization', access(idInquiry.userNo, idInquiry.nickname));
-      console.log('엑세스 헤더 발급', access(idInquiry.userNo, idInquiry.nickname));
+      console.log('로그인 엑세스 헤더 발급', access(idInquiry.userNo, idInquiry.nickname));
       res.setHeader('refreshAuthorization', refresh());
-      console.log('리프래쉬 셋헤더 발급', refresh());
+      console.log(`로그인 리프래쉬 셋헤더 발급, ${refresh()}
+      --------------------------------------------------------
+      ----------------------------------------------------------`);
       res.cookie('refreshAuthorization', refresh());
       success.status = 200;
       success.data = { message: '로그인에 성공했습니다.' };

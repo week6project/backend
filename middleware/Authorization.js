@@ -53,6 +53,7 @@ module.exports = async (req, res, next) => {
     next();
     return;
   } catch (error) {
+    console.log(error);
     /**
      * 검증 실패 error 메세지가 'invalid token'이면 정상적이 토큰이 아니라고 판단
      * 에러 메세지 리턴
