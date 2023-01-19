@@ -48,6 +48,7 @@ class PostService {
     if (matchUser) {
       return true;
     }
+    /////////////////////////////////////
     return {
       id: post.postId,
       postId: post.postId,
@@ -59,6 +60,7 @@ class PostService {
       difficult: post.difficult,
       inputHint: post.inputHint,
       passedPeople: passedPeople,
+      // passedUserNo: passedUserNo,
       matchUser: matchUser,
     };
   };
