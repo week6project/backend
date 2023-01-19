@@ -10,10 +10,14 @@ module.exports = async (req, res, next) => {
    */
   // const { Authorization } = req.cookies;
   const { authorization } = req.headers;
+  console.log(
+    `-----------------------------------------------------------------------------------------------------------------------------------------------------------------`
+  );
   console.log('들어오는 액세스', req.headers.authorization);
-  console.log(`들어오는 리프래쉬, ${req.headers.refreshauthorization}
-  
-  --------------------------------------------------------------------------------------------------------------`);
+  console.log('들어오는 리프래쉬', req.headers.refreshauthorization);
+  console.log(
+    `-----------------------------------------------------------------------------------------------------------------------------------------------------------------`
+  );
   /**
    * Access Token과 함께 발행 된 refreshtoken
    * payload는 담고있지 않다.
@@ -71,9 +75,13 @@ module.exports = async (req, res, next) => {
       const newAuthorization = jwt.decode(authToken, secretKey);
       const { userNo, nickname } = newAuthorization;
       res.setHeader('authorization', access(userNo, nickname));
-      console.log(`'재발급되는 액세스 토큰',${access(userNo, nickname)}
-      
-      --------------------------------------------------------------------------------------------------------------`);
+      console.log(
+        `-----------------------------------------------------------------------------------------------------------------------------------------------------------------`
+      );
+      console.log('재발급되는 액세스 토큰', access(userNo, nickname));
+      console.log(
+        `-----------------------------------------------------------------------------------------------------------------------------------------------------------------`
+      );
       next();
       return;
     } else {
