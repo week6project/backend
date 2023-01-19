@@ -42,7 +42,7 @@ module.exports = async (req, res, next) => {
      */
     if (!refreshauthorization) {
       return res.status(403).json({
-        errorMessage: '전달된 쿠키에서 오류가 발생했습니다.',
+        errorMessage: '전달된 리프레쉬토큰에서 오류가 발생했습니다.',
       });
     }
     /**
@@ -60,7 +60,7 @@ module.exports = async (req, res, next) => {
      * 에러 메세지 리턴
      */
     if (error.message === 'invalid token') {
-      return res.status(403).json({ errorMessage: '전달된 쿠키에서 오류가 발생했습니다.' });
+      return res.status(403).json({ errorMessage: '전달된 토큰이 불분명합니다. invalid token' });
       /**
        * 검증 실패 error 메세지가 'jwt expired'이면 유효기간이 만료된 액세스 토큰이기 때문에
        * 기존 액세스토큰은 decode하여 payload를 구조분해하여
@@ -73,11 +73,13 @@ module.exports = async (req, res, next) => {
       res.setHeader('authorization', access(userNo, nickname));
       console.log(`'재발급되는 액세스 토큰',${access(userNo, nickname)}
       
-      -----------------------------------------------------------------------------`);
+      --------------------------------------------------------------------------------------------------------------`);
       next();
       return;
     } else {
-      return res.status(403).json({ Message: '전달된 쿠키에서 오류가 발생했습니다.' });
+      return res
+        .status(403)
+        .json({ Message: '알 수 없는 이유로 전달된 토큰에서 오류가 발생했습니다. unknown error' });
     }
     /**
      *위 에러 사항이 모두 통과하지 못하면 비정상적 토큰이므로, 에러메세지 클라이언트에 전달

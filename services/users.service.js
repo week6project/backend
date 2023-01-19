@@ -79,7 +79,7 @@ class UsersServices {
       res.setHeader('refreshAuthorization', refresh());
       console.log(`로그인 리프래쉬 셋헤더 발급, ${refresh()}
       
-      --------------------------------------------------------`);
+      --------------------------------------------------------------------------------------------------------------`);
       res.cookie('refreshAuthorization', refresh());
       success.status = 200;
       success.data = { message: '로그인에 성공했습니다.' };
