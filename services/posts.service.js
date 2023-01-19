@@ -1,3 +1,4 @@
+
 const { decoded } = require('../module/Token.module');
 const PostRepository = require('../repositories/posts.repository.js');
 class PostService {

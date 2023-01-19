@@ -16,7 +16,7 @@ class PostsController {
     });
   };
 
-  getPostById = async (req, res, next) => {
+  getPostById = async (req, res, next) => {    
     const { postId } = req.params;
     const { userNo } = decoded(req.headers);
     const post = await this.postService.getPostById(postId, userNo);
@@ -65,8 +65,12 @@ class PostsController {
   };
 
   createAnswerd = async (req, res, next) => {
-    const { userNo, postId } = req.body;
+    const { postId } = req.body;
+    const { userNo } = decoded(req.headers); // userNo 헤더에서 추출
+
     console.log('정답자 바디 값', req.body);
+    console.log(`🐞 정답자 헤더값(userNo) : ${userNo}`);
+
     const answerdInput = {
       userNo,
       postId,
