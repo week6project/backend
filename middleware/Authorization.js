@@ -30,7 +30,7 @@ module.exports = async (req, res, next) => {
      * 로그인 필요 메세지 클라이언틀 전달
      */
     if (!authorization) {
-      if (!refreshAuthorization) {
+      if (!refreshauthorization) {
         return res.status(403).json({
           errorMessage: '로그인이 필요한 기능입니다.',
         });
