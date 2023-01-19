@@ -36,9 +36,6 @@ class PostService {
         return value.User.userNo;
       });
       const matchUser = await passedUserNo.includes(userNo);
-      if (matchUser) {
-        return matchUser;
-      }
       if (!matchUser) {
         throw new Error();
       }
