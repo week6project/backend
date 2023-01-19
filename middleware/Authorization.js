@@ -10,9 +10,10 @@ module.exports = async (req, res, next) => {
    */
   // const { Authorization } = req.cookies;
   const { authorization } = req.headers;
-  console.log('헤더', req.headers);
-  console.log('액세스', req.headers.authorization);
-  console.log('리프래쉬', req.headers.refreshauthorization);
+  console.log('들어오는 액세스', req.headers.authorization);
+  console.log(`들어오는 리프래쉬, req.headers.refreshauthorization,
+  
+  --------------------------------------------------------------------------------------------------------------`);
   /**
    * Access Token과 함께 발행 된 refreshtoken
    * payload는 담고있지 않다.
@@ -53,6 +54,7 @@ module.exports = async (req, res, next) => {
     next();
     return;
   } catch (error) {
+    console.log('토큰 에러 메세지', error);
     /**
      * 검증 실패 error 메세지가 'invalid token'이면 정상적이 토큰이 아니라고 판단
      * 에러 메세지 리턴
@@ -69,6 +71,10 @@ module.exports = async (req, res, next) => {
       const newAuthorization = jwt.decode(authToken, secretKey);
       const { userNo, nickname } = newAuthorization;
       res.setHeader('authorization', access(userNo, nickname));
+      console.log(`'재발급되는 액세스 토큰',access(userNo, nickname)
+      
+      -----------------------------------------------------------------------------
+      `);
       next();
       return;
     } else {
