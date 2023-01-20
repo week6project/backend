@@ -36,7 +36,7 @@ app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 // });
 // const whitelist = ['http://localhost:3000'];
 const corsOption = {
-  origin: 'http://localhost:3000',
+  origin: 'https://frontend-u4xh.vercel.app',
   // allowHeaders: ['Authorization', 'refreshAuthorization'],
   exposedHeaders: ['Authorization', 'refreshAuthorization'],
   credentials: true,
