@@ -20,7 +20,7 @@ module.exports = {
    */
   access: (userNo, nickname) => {
     const payload = { userNo, nickname };
-    const access = 'Bearer ' + jwt.sign(payload, secretKey, { expiresIn: '1m' });
+    const access = 'Bearer ' + jwt.sign(payload, secretKey, { expiresIn: '20m' });
     return access;
   },
 
