@@ -51,7 +51,7 @@ app.use(expressSanitizer());
 app.use(
   rateLimit({
     windowMs: 1 * 60 * 1000, /// 1분 (밀리세컨드) type : number
-    max: 50, /// 최대 3번의  type : number || function def : 5  if 0 unlimit
+    max: 10, /// 최대 3번의  type : number || function def : 5  if 0 unlimit
     delayMs: 1000, // 딜레이 1초
     standardHeaders: true, // 문제 발생시 헤더로 보냄
     legacyHeaders: false, //  버전문제시 X-RateLimit-Limit 제한,
